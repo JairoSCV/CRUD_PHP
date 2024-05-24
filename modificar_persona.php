@@ -4,7 +4,7 @@ include 'modelo/conexion.php';
 /*Almacenar en una variable el ID de la fila a editar*/
 $id=$_GET["id"];
 
-$sql=$conexion->query("SELECT (nombre,apellido,dni,fecha_nac,correo) FROM persona WHERE id_persona = $id ");
+$sql=$conexion->query("SELECT * FROM persona WHERE id_persona = $id ");
 
 ?>
 
@@ -18,35 +18,39 @@ $sql=$conexion->query("SELECT (nombre,apellido,dni,fecha_nac,correo) FROM person
 </head>
 <body>
 <form class="col-4 p-4" method="POST">
-            <h3 class="text-center text-secondary" >Modificar persona</h3>
+            <h3 class="text-center alert text-secondary" >Modificar persona</h3>
+
+            <!--usar el método GET para obtener el id y guardarlo en una variable name='id'-->
+            <input type="hidden" name="id" value="<?= $_GET["id"]?>">
+
             <!--PHP puede ser colocado en cualquier parte del código, 
                 haciendo referencia a lo que se necesita-->
             <?php
-
+            include "controlador/set_personaController.php";
             while($datos=$sql->fetch_object()){ ?>
                 <div class="mb-3">
                 <label class="form-label">Nombres: </label>
-                <input type="text" class="form-control" name="nombre"> <?=$datos->nombre;?>
+                <input type="text" class="form-control" name="nombre" value="<?=$datos->nombre;?>"> 
                 </div>
                 <br>
                 <div class="mb-3">
                     <label class="form-label">Apellidos: </label>
-                    <input type="text" class="form-control" name="apellido"> <?=$datos->apellido;?>
+                    <input type="text" class="form-control" name="apellido" value="<?=$datos->apellido;?>"> 
                 </div>
                 <br>
                 <div class="mb-3">
                     <label class="form-label">DNI: </label>
-                    <input type="text" class="form-control" name="dni"> <?=$datos->dni;?>
+                    <input type="text" class="form-control" name="dni" value="<?=$datos->dni;?>"> 
                 </div>
                 <br>
                 <div class="mb-3">
                     <label class="form-label">Fecha de nacimiento: </label>
-                    <input type="date" class="form-control" name="fecha"> <?=$datos->fecha;?>
+                    <input type="date" class="form-control" name="fecha" value="<?=$datos->fecha_nac;?>"> 
                 </div>
                 <br>
                 <div class="mb-3">
                     <label class="form-label">Email: </label>
-                    <input type="email" class="form-control" name="email"> <?=$datos->email;?>
+                    <input type="email" class="form-control" name="email" value="<?=$datos->correo;?>"> 
                 </div>
             <?php
             }
@@ -54,7 +58,7 @@ $sql=$conexion->query("SELECT (nombre,apellido,dni,fecha_nac,correo) FROM person
 
 
             
-            <button type="submit" name="btnRegistrar" value="ok" class="btn btn-primary">Modificar persona</button>
+            <button type="submit" name="btnModificar" value="ok" class="btn btn-primary">Modificar persona</button>
         </form>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

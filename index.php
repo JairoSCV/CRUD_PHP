@@ -7,7 +7,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
   <body>
+    
+  <!--javascript-->
+  <script>
+        function eliminar(){
+            var respuesta=confirm("¿Estas seguro de eliminar el registro?")
+                if( respuesta == true ){
+                alert("OK, SE ELIMINÓ EL REGISTRO!");
+                return true;
+                }else{
+                    alert("NO SE REALIZÓ");
+                    return false;
+                }
+        }
+    </script>
+
+
     <h1 class="text-center">Hello, world!</h1>
+
+    <?php
+        include "controlador/eliminar_persona.php";
+    ?>
 
     <div class="container-fluid row">
 
@@ -83,10 +103,10 @@
                                 <td><?= $datos->correo?></td>
                                 <td>
                                     <!--Enviar id de la fila(hoja.php?id=[valor del id mediante php])-->
-                                    <a href="modificar_persona.php?id=<?php $datos->id_persona ?>">Editar</a>
+                                    <a href="modificar_persona.php?id=<?= $datos->id_persona ?>">Editar</a>
                                 </td>
                                 <td>
-                                    <a href="">Eliminar</a>
+                                    <a onclick="return eliminar()" href="index.php?id=<?=$datos->id_persona?>">Eliminar</a>
                                 </td>
                             </tr>
                             <!--abro nuevamente php-->
